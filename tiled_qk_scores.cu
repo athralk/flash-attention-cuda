@@ -3,9 +3,10 @@ __device__ void tile_scores(const float* q_tile, const float* k_tile, float* s_t
                             int thread_id, int num_threads) {
     
     int size_score = tile_k * tile_q;
-    
+    // for tiling you have to take the increment of num_threads
+    // because youre iterating over the tiles not each element of the array
     for (int linear_idx = thread_id; linear_idx < size_score; linear_idx += num_threads) {
-        
+        //we take row by div and col by modulus
         int i = linear_idx / tile_k;
         int j = linear_idx % tile_k; 
 
